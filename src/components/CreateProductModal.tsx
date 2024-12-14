@@ -13,6 +13,7 @@ import {
   FormControl,
 } from "@mui/material";
 import { homeStyles } from "@/styles/HomeStyles";
+import Swal from 'sweetalert2';
 
 interface CreateProductModalProps {
   open: boolean;
@@ -30,21 +31,42 @@ export const CreateProductModal = ({ open, onClose }: CreateProductModalProps) =
   });
   const [newProductCategory, setNewProductCategory] = useState<number | "">("");
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!newProductCategory) {
-      alert("Por favor, selecciona una categoría.");
+      await Swal.fire({
+        title: 'Error',
+        text: 'Por favor, selecciona una categoría',
+        icon: 'warning',
+        confirmButtonColor: '#4F46E5'
+      });
       return;
     }
-    createProduct.mutate(
-      { ...newProduct, categoryId: newProductCategory },
-      {
-        onSuccess: () => {
-          setNewProduct({ name: "", price: 0, description: "" });
-          setNewProductCategory("");
-          onClose();
-        },
-      }
-    );
+
+    try {
+      onClose();
+      
+      await createProduct.mutateAsync(
+        { ...newProduct, categoryId: newProductCategory },
+      );
+      
+      await Swal.fire({
+        title: '¡Éxito!',
+        text: 'El producto ha sido creado correctamente',
+        icon: 'success',
+        confirmButtonColor: '#4F46E5'
+      });
+
+      setNewProduct({ name: "", price: 0, description: "" });
+      setNewProductCategory("");
+    } catch (error) {
+      await Swal.fire({
+        title: 'Error',
+        text: 'No se pudo crear el producto',
+        icon: 'error',
+        confirmButtonColor: '#4F46E5'
+      });
+      onClose();
+    }
   };
 
   return (

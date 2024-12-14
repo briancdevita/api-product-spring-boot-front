@@ -65,6 +65,22 @@ export const homeStyles = {
     display: 'flex',
     justifyContent: 'flex-end',
     mt: 3
+  },
+  actionButtons: {
+    display: 'flex',
+    gap: 1,
+  },
+  editButton: {
+    color: '#4F46E5',  // Color índigo para consistencia
+    '&:hover': {
+      backgroundColor: 'rgba(79, 70, 229, 0.1)',  // Índigo con transparencia
+    }
+  },
+  deleteButton: {
+    color: '#DC2626',  // Color rojo
+    '&:hover': {
+      backgroundColor: 'rgba(220, 38, 38, 0.1)',  // Rojo con transparencia
+    }
   }
 } as Record<string, SxProps<Theme>>;
 

@@ -25,3 +25,42 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "No se pudo crear el producto" }, { status: 500 });
     }
 }
+
+// Delete: Eliminar producto
+export async function DELETE(req: Request) {
+    try {
+        const url = new URL(req.url);
+        const id = url.searchParams.get("id");
+        
+        if (!id) {
+            return NextResponse.json({ error: "ID no proporcionado" }, { status: 400 });
+        }
+
+        const response = await axiosInstance.delete(`/product/${id}`);
+        return NextResponse.json(response.data);
+    } catch (error) {
+        console.error("Error al eliminar producto:", error);
+        return NextResponse.json({ error: "No se pudo eliminar el producto" }, { status: 500 });
+    }
+}
+
+// Put: Actualizar producto
+export async function PUT(req: Request) {
+    try {
+        const body = await req.json();
+        const { id, ...updateData } = body;
+        
+        if (!id) {
+            return NextResponse.json({ error: "ID no proporcionado" }, { status: 400 });
+        }
+
+        const response = await axiosInstance.put(`/product/${id}`, {
+            ...updateData,
+            category: { id: updateData.categoryId }
+        });
+        return NextResponse.json(response.data);
+    } catch (error) {
+        console.error("Error al actualizar producto:", error);
+        return NextResponse.json({ error: "No se pudo actualizar el producto" }, { status: 500 });
+    }
+}
