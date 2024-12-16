@@ -14,7 +14,10 @@ export const ProductManagement = () => {
   const deleteProduct = useDeleteProduct();
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0, // Página actual (inicia en 0)
+    pageSize: 5, // Tamaño inicial de filas por página
+  });
   if (loadingProducts) return <p>Cargando datos...</p>;
 
   const handleEdit = (id: number) => {
@@ -56,11 +59,11 @@ export const ProductManagement = () => {
   };
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 50 },
-    { field: "name", headerName: "Nombre", width: 150 },
-    { field: "price", headerName: "Precio", width: 100 },
-    { field: "description", headerName: "Descripción", width: 200 },
-    { field: "categoryName", headerName: "Categoría", width: 120 },
+    { field: "id", headerName: "ID", flex: 1 },
+    { field: "name", headerName: "Nombre" , flex: 1  },
+    { field: "price", headerName: "Precio",flex: 1  },
+    { field: "description", headerName: "Descripción",flex: 1  },
+    { field: "categoryName", headerName: "Categoría",flex: 1  },
     {
       field: "actions",
       headerName: "Acciones",
@@ -105,8 +108,11 @@ export const ProductManagement = () => {
         <DataGrid
           rows={rows || []}
           columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5, 10]}
+          pagination
+          paginationModel={paginationModel}
+          onPaginationModelChange={(model) => setPaginationModel(model)} 
+          rowsPerPageOptions={[5, 10, 20]}
+          pageSizeOptions={3}
           components={{
             Toolbar: GridToolbar,
           }}

@@ -46,7 +46,7 @@ export const Navbar = () => {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography variant="h6" noWrap sx={navbarStyles.logo}>
-              MiLogo
+              DemoProducts
             </Typography>
 
             <Box sx={navbarStyles.mobileMenuContainer}>
