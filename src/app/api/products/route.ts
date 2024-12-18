@@ -29,18 +29,37 @@ export async function POST(req: Request) {
 // Delete: Eliminar producto
 export async function DELETE(req: Request) {
     try {
-        const url = new URL(req.url);
-        const id = url.searchParams.get("id");
+        const body = await req.json();
+        const { id } = body;
         
         if (!id) {
             return NextResponse.json({ error: "ID no proporcionado" }, { status: 400 });
         }
 
+        console.log('Intentando eliminar producto con ID:', id);
+        
         const response = await axiosInstance.delete(`/product/${id}`);
+        console.log('Respuesta exitosa:', response.data);
+        
         return NextResponse.json(response.data);
-    } catch (error) {
-        console.error("Error al eliminar producto:", error);
-        return NextResponse.json({ error: "No se pudo eliminar el producto" }, { status: 500 });
+    } catch (error: any) {
+        console.error("Error detallado al eliminar producto:", {
+            mensaje: error.message,
+            respuesta: error.response?.data,
+            estado: error.response?.status
+        });
+        
+        if (error.response?.status === 403) {
+            return NextResponse.json(
+                { error: "No tienes permisos para eliminar este producto" }, 
+                { status: 403 }
+            );
+        }
+        
+        return NextResponse.json(
+            { error: "No se pudo eliminar el producto", detalles: error.response?.data }, 
+            { status: error.response?.status || 500 }
+        );
     }
 }
 

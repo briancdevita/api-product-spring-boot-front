@@ -2,6 +2,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "./axiosInstance";
 import { Category, Product } from "@/types/types";
 
+
+
 // Obtener productos
 export const useProducts = () =>
   useQuery<Product[]>({
@@ -55,31 +57,41 @@ export const useCreateCategory = () => {
   });
 };
 
+
+
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (id: number) => {
-      const response = await fetch(`/api/products?id=${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error('Error al eliminar el producto');
+      try {
+        // Recupera el token de localStorage o contexto
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No se encontró el token de autenticación");
+        }
+
+        // Corregimos la URL para usar path parameter y la ruta correcta
+        const response = await axiosInstance.delete(`/product/${id}`);
+        return response.data;
+      } catch (error) {
+        console.error("Error al eliminar el producto:", error);
+        throw new Error("Error al eliminar el producto");
       }
-      return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['products'] });
+      queryClient.invalidateQueries(["products"]); // Refresca la lista de productos
     },
   });
 };
+
 
 export const useUpdateProduct = () => {
   const queryClient = useQueryClient();
   
   return useMutation({
     mutationFn: async (data: { id: number } & Omit<Product, "id" | "category"> & { categoryId: number }) => {
-      const response = await fetch('/api/products', {
+      const response = await fetch(`/product/${data.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -96,3 +108,4 @@ export const useUpdateProduct = () => {
     },
   });
 };
+

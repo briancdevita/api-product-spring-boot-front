@@ -4,7 +4,7 @@ import axiosInstance from "@/lib/axiosInstance";
 // GET: Obtener todas las categorías desde el backend
 export async function GET() {
   try {
-    const response = await axiosInstance.get("/categories");
+    const response = await axiosInstance.get("/category/");
     return NextResponse.json(response.data);
   } catch (error) {
     console.error("Error al obtener categorías:", error);

@@ -4,6 +4,10 @@ export interface Category {
     name: string;
   }
   
+
+
+
+  
   // Interfaz para Producto
   export interface Product {
     id: number;

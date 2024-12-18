@@ -9,21 +9,22 @@ import {
   Container,
   Button,
   MenuItem,
-  useTheme,
-  useMediaQuery
+
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AddIcon from '@mui/icons-material/Add';
 import { navbarStyles } from '@/styles/HomeStyles';
 import { CreateProductModal } from './CreateProductModal';
+import { useAuth } from '@/app/context/AuthContext';
+
 
 const pages = ['Inicio'];
 
 export const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [openModal, setOpenModal] = useState(false);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const {logout, user} = useAuth();
+
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -104,6 +105,20 @@ export const Navbar = () => {
                 sx={navbarStyles.createButton}
               >
                 Crear Producto
+              </Button>
+              <Button
+                // startIcon={<AddIcon />}
+                onClick={logout}
+                sx={navbarStyles.createButton}
+              >
+                Salir
+              </Button>
+              <Button
+                // startIcon={<AddIcon />}
+               
+                sx={navbarStyles.createButton}
+              >
+                {user?.username}
               </Button>
             </Box>
           </Toolbar>
