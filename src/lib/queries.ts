@@ -104,13 +104,21 @@ export const useUpdateProduct = () => {
           throw new Error("No se encontró el token de autenticación");
         }
 
-        // Realiza la solicitud PUT al backend
-        const response = await axiosInstance.put(`/product/${data.id}`, {
-          name: data.name,
-          price: data.price,
-          description: data.description,
-          categoryId: data.categoryId,
-        });
+        // Realiza la solicitud PUT al backend con el token en las cabeceras
+        const response = await axiosInstance.put(
+          `/product/${data.id}`,
+          {
+            name: data.name,
+            price: data.price,
+            description: data.description,
+            categoryId: data.categoryId,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Incluye el token en las cabeceras
+            },
+          }
+        );
 
         return response.data;
       } catch (error) {

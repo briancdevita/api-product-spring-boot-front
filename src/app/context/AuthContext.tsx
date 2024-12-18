@@ -19,6 +19,7 @@ interface AuthContextType {
   user: {username: string; role: string } | null;
   login: (token: string) => void;
   logout: () => void;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -26,8 +27,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<{ username: string; role: string } | null>(null);
+  const [loading, setLoading] = useState(true); // Inicia en estado de carga
 
-  console.log({user: user})
 
   const decodeToken = (token: string) => {
     try {
@@ -53,6 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser(userData);
       }
     }
+    setLoading(false); // La autenticación ha concluido
   }, []);
 
     // Función para iniciar sesión
@@ -75,7 +77,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, user, login, logout }}>
+    <AuthContext.Provider value={{ token, user, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

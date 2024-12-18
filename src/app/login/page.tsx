@@ -26,7 +26,7 @@ export default function LoginPage() {
   const handleLogin = async () => {
     setError(null);
     try {
-      console.log("Enviando:", email, password);
+
       const token = await loginUser(email, password); // Realiza la solicitud al backend
       login(token); // Guarda el token en localStorage y actualiza el contexto
       router.push("/"); // Redirige al dashboard o página principal

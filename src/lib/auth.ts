@@ -13,7 +13,7 @@ export const loginUser = async (username: string, password: string): Promise<str
     );
 
     const token = response.data.token.replace(/^Bearer\s/, "");
-    console.log(`Este token es de login: ${token}`)
+
     if (token) {
       localStorage.setItem("token", token);
     }

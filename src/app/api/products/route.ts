@@ -9,7 +9,7 @@ export async function GET() {
         const response = await axiosInstance.get("/products");
         return NextResponse.json(response.data)
     } catch (error) {
-        console.log("Error al obtener productos", error)
+
         return NextResponse.json({error:"No se pudieron obtener los productos"}, {status: 500})
     }
 }
@@ -36,10 +36,10 @@ export async function DELETE(req: Request) {
             return NextResponse.json({ error: "ID no proporcionado" }, { status: 400 });
         }
 
-        console.log('Intentando eliminar producto con ID:', id);
+
         
         const response = await axiosInstance.delete(`/product/${id}`);
-        console.log('Respuesta exitosa:', response.data);
+  
         
         return NextResponse.json(response.data);
     } catch (error: any) {

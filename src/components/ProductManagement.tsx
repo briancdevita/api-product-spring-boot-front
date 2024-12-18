@@ -12,6 +12,7 @@ import { useAuth } from "@/app/context/AuthContext";
 import { isAdmin } from "@/app/helper/isAdmin";
 
 export const ProductManagement = () => {
+  const { user } = useAuth()
   const { data: products, isLoading: loadingProducts } = useProducts();
   const deleteProduct = useDeleteProduct();
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -20,7 +21,7 @@ export const ProductManagement = () => {
     page: 0, // Página actual (inicia en 0)
     pageSize: 5, // Tamaño inicial de filas por página
   });
-   const { user } =useAuth()
+  
   if (loadingProducts) return <p>Cargando datos...</p>;
 
   const handleEdit = (id: number) => {
@@ -123,7 +124,7 @@ export const ProductManagement = () => {
           paginationModel={paginationModel}
           onPaginationModelChange={(model) => setPaginationModel(model)} 
           rowsPerPageOptions={[5, 10, 20]}
-          pageSizeOptions={3}
+          pageSizeOptions={[5, 10, 20]}
           components={{
             Toolbar: GridToolbar,
           }}
