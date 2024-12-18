@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { EditProductModal } from './EditProductModal';
 import { Product } from "@/types/types";
 import { useAuth } from "@/app/context/AuthContext";
+import { isAdmin } from "@/app/helper/isAdmin";
 
 export const ProductManagement = () => {
   const { data: products, isLoading: loadingProducts } = useProducts();
@@ -68,12 +69,15 @@ export const ProductManagement = () => {
     { field: "categoryName", headerName: "Categoría",flex: 1  },
     {
       field: "actions",
-      headerName: "Acciones",
+      headerName: isAdmin(user) ? 'Acciones' : "",
       width: 120,
       sortable: false,
       renderCell: (params) => (
         <Box sx={homeStyles.actionButtons}>
-          <Tooltip title="Editar">
+          {
+            isAdmin(user) && (
+              <>
+               <Tooltip title="Editar">
             <IconButton 
               onClick={() => handleEdit(params.row.id)}
               size="small"
@@ -91,6 +95,11 @@ export const ProductManagement = () => {
               <DeleteIcon fontSize="small" />
             </IconButton>
           </Tooltip>
+              
+              </>
+            )
+          }
+         
         </Box>
       ),
     },

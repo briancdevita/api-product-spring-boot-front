@@ -120,7 +120,6 @@ export const Navbar = () => {
                 Salir
               </Button>
               <Button
-                // startIcon={<AddIcon />}
                
                 sx={navbarStyles.createButton}
               >
