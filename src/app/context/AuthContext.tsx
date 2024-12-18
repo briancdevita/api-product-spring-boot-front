@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<{ username: string; role: string } | null>(null);
 
-
+  console.log({user: user})
 
   const decodeToken = (token: string) => {
     try {

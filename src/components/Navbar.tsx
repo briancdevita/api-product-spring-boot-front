@@ -16,6 +16,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { navbarStyles } from '@/styles/HomeStyles';
 import { CreateProductModal } from './CreateProductModal';
 import { useAuth } from '@/app/context/AuthContext';
+import { isAdmin } from '@/app/helper/isAdmin';
 
 
 const pages = ['Inicio'];
@@ -99,13 +100,18 @@ export const Navbar = () => {
                   {page}
                 </Button>
               ))}
-              <Button
+
+              {
+                isAdmin(user) && (
+                <Button
                 startIcon={<AddIcon />}
                 onClick={() => setOpenModal(true)}
                 sx={navbarStyles.createButton}
               >
                 Crear Producto
               </Button>
+                )}
+              
               <Button
                 // startIcon={<AddIcon />}
                 onClick={logout}

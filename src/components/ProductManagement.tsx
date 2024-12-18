@@ -8,6 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Swal from 'sweetalert2';
 import { EditProductModal } from './EditProductModal';
 import { Product } from "@/types/types";
+import { useAuth } from "@/app/context/AuthContext";
 
 export const ProductManagement = () => {
   const { data: products, isLoading: loadingProducts } = useProducts();
@@ -18,6 +19,7 @@ export const ProductManagement = () => {
     page: 0, // Página actual (inicia en 0)
     pageSize: 5, // Tamaño inicial de filas por página
   });
+   const { user } =useAuth()
   if (loadingProducts) return <p>Cargando datos...</p>;
 
   const handleEdit = (id: number) => {
@@ -119,6 +121,7 @@ export const ProductManagement = () => {
         />
       </Box>
 
+      
       <EditProductModal
         open={editModalOpen}
         onClose={() => {
@@ -127,6 +130,8 @@ export const ProductManagement = () => {
         }}
         product={selectedProduct}
       />
+
     </>
+
   );
 }; 

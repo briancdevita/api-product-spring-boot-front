@@ -88,23 +88,32 @@ export const useDeleteProduct = () => {
 
 export const useUpdateProduct = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (data: { id: number } & Omit<Product, "id" | "category"> & { categoryId: number }) => {
-      const response = await fetch(`/product/${data.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        throw new Error('Error al actualizar el producto');
+      try {
+        // Recupera el token del localStorage
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No se encontró el token de autenticación");
+        }
+
+        // Realiza la solicitud PUT al backend
+        const response = await axiosInstance.put(`/product/${data.id}`, {
+          name: data.name,
+          price: data.price,
+          description: data.description,
+          categoryId: data.categoryId,
+        });
+
+        return response.data;
+      } catch (error) {
+        console.error("Error al actualizar el producto:", error);
+        throw new Error("Error al actualizar el producto");
       }
-      return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['products'] });
+      queryClient.invalidateQueries(["products"]); // Refresca la lista de productos
     },
   });
 };
