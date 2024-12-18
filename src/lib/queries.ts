@@ -65,14 +65,19 @@ export const useDeleteProduct = () => {
   return useMutation({
     mutationFn: async (id: number) => {
       try {
-        // Recupera el token de localStorage o contexto
+        // Recupera el token del localStorage
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No se encontró el token de autenticación");
         }
 
-        // Corregimos la URL para usar path parameter y la ruta correcta
-        const response = await axiosInstance.delete(`/product/${id}`);
+        // Realiza la solicitud DELETE al backend con el token en la cabecera
+        const response = await axiosInstance.delete(`/product/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Incluye el token
+          },
+        });
+
         return response.data;
       } catch (error) {
         console.error("Error al eliminar el producto:", error);
@@ -84,6 +89,7 @@ export const useDeleteProduct = () => {
     },
   });
 };
+
 
 
 export const useUpdateProduct = () => {
