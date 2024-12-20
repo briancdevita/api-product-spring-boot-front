@@ -128,9 +128,9 @@ export const ProductManagement = () => {
 
       <Box sx={homeStyles.dataGridContainer}>
 
-
-        {/* Botón de descarga arriba */}
-        <Box
+      {
+        isAdmin(user) && (
+          <Box
           sx={{
             display: "flex",
             justifyContent: "flex-end",
@@ -149,6 +149,11 @@ export const ProductManagement = () => {
             </Button>
           </Tooltip>
         </Box>
+        )
+      }
+
+        {/* Botón de descarga arriba */}
+       
 
 
 

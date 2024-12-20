@@ -7,16 +7,17 @@ import {
   Typography,
   Menu,
   Container,
-  Button,
+
   MenuItem,
 
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import AddIcon from '@mui/icons-material/Add';
+
 import { navbarStyles } from '@/styles/HomeStyles';
 import { CreateProductModal } from './CreateProductModal';
 import { useAuth } from '@/app/context/AuthContext';
 import { isAdmin } from '@/app/helper/isAdmin';
+import { AccountCircle, AddCircle, ExitToApp } from '@mui/icons-material';
 
 
 const pages = ['Inicio'];
@@ -91,40 +92,34 @@ export const Navbar = () => {
             </Typography>
 
             <Box sx={navbarStyles.desktopMenu}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={navbarStyles.menuButton}
-                >
-                  {page}
-                </Button>
-              ))}
-
+    
               {
                 isAdmin(user) && (
-                <Button
-                startIcon={<AddIcon />}
+                <IconButton
+                // startIcon={<AddIcon />}
                 onClick={() => setOpenModal(true)}
                 sx={navbarStyles.createButton}
               >
-                Crear Producto
-              </Button>
+                <AddCircle />
+              <Typography variant="body1" sx={{ ml: 1 }}>
+                Crear
+              </Typography>
+              </IconButton>
                 )}
               
-              <Button
-                // startIcon={<AddIcon />}
-                onClick={logout}
-                sx={navbarStyles.createButton}
-              >
+              <IconButton color="inherit" onClick={logout}>
+              <ExitToApp />
+              <Typography variant="body1" sx={{ ml: 1 }}>
                 Salir
-              </Button>
-              <Button
-               
-                sx={navbarStyles.createButton}
-              >
+              </Typography>
+            </IconButton>
+
+            <IconButton color="inherit" >
+              <AccountCircle />
+              <Typography variant="body1" sx={{ ml: 1 }}>
                 {user?.username}
-              </Button>
+              </Typography>
+            </IconButton>
             </Box>
           </Toolbar>
         </Container>
