@@ -44,11 +44,11 @@ export const CreateProductModal = ({ open, onClose }: CreateProductModalProps) =
 
     try {
       onClose();
-      
+
       await createProduct.mutateAsync(
         { ...newProduct, categoryId: newProductCategory },
       );
-      
+
       await Swal.fire({
         title: '¡Éxito!',
         text: 'El producto ha sido creado correctamente',

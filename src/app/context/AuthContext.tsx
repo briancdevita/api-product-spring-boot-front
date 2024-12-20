@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
 
-  // Recuperar el token de localStorage al cargar la aplicación
+  
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedToken = localStorage.getItem("token");
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser(userData);
       }
     }
-    setLoading(false); // La autenticación ha concluido
+    setLoading(false); 
   }, []);
 
     // Función para iniciar sesión
@@ -69,10 +69,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     };
 
-  // Función para cerrar sesión
+
   const logout = () => {
-    localStorage.removeItem("token"); // Eliminar el token
-    setToken(null); // Limpiar el estado
+    localStorage.removeItem("token"); 
+    setToken(null); 
     setUser(null)
   };
 

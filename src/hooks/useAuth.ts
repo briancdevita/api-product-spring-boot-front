@@ -7,10 +7,7 @@ export const useAuth = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        // Aquí va tu lógica de verificación de autenticación
-        // Por ejemplo, verificar un token en localStorage o hacer una llamada a la API
-        
-        // Simulación de verificación
+ 
         await new Promise(resolve => setTimeout(resolve, 1000));
         const hasToken = localStorage.getItem('token');
         setIsAuthenticated(!!hasToken);

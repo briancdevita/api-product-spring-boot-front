@@ -10,13 +10,13 @@ import { useAuth } from "../context/AuthContext";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login, token, loading } = useAuth(); // Añadimos loading
+  const { login, token, loading } = useAuth(); 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  // Modificamos el useEffect
+
   useEffect(() => {
     if (!loading && token) {
       router.push("/");
@@ -35,12 +35,12 @@ export default function LoginPage() {
     }
   };
 
-  // Si está cargando, mostramos un spinner o nada
+
   if (loading) {
-    return null; // O puedes mostrar un spinner si prefieres
+    return null; 
   }
 
-  // Solo mostramos el formulario si no hay token y no está cargando
+ 
   if (!token) {
     return (
       <Box

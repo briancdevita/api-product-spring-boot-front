@@ -5,8 +5,6 @@ export interface Category {
   }
   
 
-
-
   
   // Interfaz para Producto
   export interface Product {

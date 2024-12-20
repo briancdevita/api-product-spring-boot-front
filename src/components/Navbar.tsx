@@ -7,7 +7,6 @@ import {
   Typography,
   Menu,
   Container,
-
   MenuItem,
 
 } from '@mui/material';
@@ -25,7 +24,7 @@ const pages = ['Inicio'];
 export const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [openModal, setOpenModal] = useState(false);
-  const {logout, user} = useAuth();
+  const { logout, user } = useAuth();
 
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -38,8 +37,8 @@ export const Navbar = () => {
 
   return (
     <>
-      <AppBar 
-        position="fixed" 
+      <AppBar
+        position="fixed"
         elevation={2}
         sx={{
           backgroundColor: '#4F46E5',
@@ -92,40 +91,40 @@ export const Navbar = () => {
             </Typography>
 
             <Box sx={navbarStyles.desktopMenu}>
-    
+
               {
                 isAdmin(user) && (
-                <IconButton
-                // startIcon={<AddIcon />}
-                onClick={() => setOpenModal(true)}
-                sx={navbarStyles.createButton}
-              >
-                <AddCircle />
-              <Typography variant="body1" sx={{ ml: 1 }}>
-                Crear
-              </Typography>
-              </IconButton>
+                  <IconButton
+                    // startIcon={<AddIcon />}
+                    onClick={() => setOpenModal(true)}
+                    sx={navbarStyles.createButton}
+                  >
+                    <AddCircle />
+                    <Typography variant="body1" sx={{ ml: 1 }}>
+                      Crear
+                    </Typography>
+                  </IconButton>
                 )}
-              
-              <IconButton color="inherit" onClick={logout}>
-              <ExitToApp />
-              <Typography variant="body1" sx={{ ml: 1 }}>
-                Salir
-              </Typography>
-            </IconButton>
 
-            <IconButton color="inherit" >
-              <AccountCircle />
-              <Typography variant="body1" sx={{ ml: 1 }}>
-                {user?.username}
-              </Typography>
-            </IconButton>
+              <IconButton color="inherit" onClick={logout}>
+                <ExitToApp />
+                <Typography variant="body1" sx={{ ml: 1 }}>
+                  Salir
+                </Typography>
+              </IconButton>
+
+              <IconButton color="inherit" >
+                <AccountCircle />
+                <Typography variant="body1" sx={{ ml: 1 }}>
+                  {user?.username}
+                </Typography>
+              </IconButton>
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
 
-      <CreateProductModal 
+      <CreateProductModal
         open={openModal}
         onClose={() => setOpenModal(false)}
       />

@@ -23,7 +23,7 @@ export const ProductManagement = () => {
     pageSize: 5, // Tamaño inicial de filas por página
   });
 
-  const {downloadCsv} = useDownloadCsv()
+  const { downloadCsv } = useDownloadCsv()
 
   if (loadingProducts) return <p>Cargando datos...</p>;
 
@@ -128,34 +128,29 @@ export const ProductManagement = () => {
 
       <Box sx={homeStyles.dataGridContainer}>
 
-      {
-        isAdmin(user) && (
-          <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            mb: 2, // Espaciado inferior para separar del DataGrid
-          }}
-        >
-          <Tooltip title="Descargar CSV">
-            <Button 
-            variant="contained" 
-            endIcon={<Download />} 
-            color="error"
-            onClick={()=>downloadCsv()}
+        {
+          isAdmin(user) && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                mb: 2,
+              }}
             >
-              Descargar CSV
-            </Button>
-          </Tooltip>
-        </Box>
-        )
-      }
-
-        {/* Botón de descarga arriba */}
-       
-
-
+              <Tooltip title="Descargar CSV">
+                <Button
+                  variant="contained"
+                  endIcon={<Download />}
+                  color="error"
+                  onClick={() => downloadCsv()}
+                >
+                  Descargar CSV
+                </Button>
+              </Tooltip>
+            </Box>
+          )
+        }
 
         <DataGrid
           rows={rows || []}

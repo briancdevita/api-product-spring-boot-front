@@ -45,13 +45,13 @@ export const EditProductModal = ({ open, onClose, product }: EditProductModalPro
 
   const handleSubmit = async () => {
     if (!product) return;
-    
+
     try {
       await updateProduct.mutateAsync({
         id: product.id,
         ...formData,
       });
-      
+
       Swal.fire(
         '¡Actualizado!',
         'El producto ha sido actualizado correctamente.',
