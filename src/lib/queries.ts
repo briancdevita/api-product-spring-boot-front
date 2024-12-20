@@ -132,3 +132,34 @@ export const useUpdateProduct = () => {
   });
 };
 
+export const useDownloadCsv = () => {
+  return {
+    downloadCsv: async () => {
+      try {
+        // Recupera el token del localStorage
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No se encontró el token de autenticación");
+        }
+
+        // Realiza la solicitud GET al backend para obtener el CSV
+        const response = await axiosInstance.get("/products/download", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Incluye el token en la cabecera
+          },
+          responseType: "blob", // Necesario para manejar archivos binarios como CSV
+        });
+
+        // Crear un enlace para descargar el archivo
+        const blob = new Blob([response.data], { type: "text/csv" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "productos.csv"; // Nombre del archivo
+        link.click(); // Forzar la descarga
+      } catch (error) {
+        console.error("Error al descargar el CSV:", error);
+        throw new Error("No se pudo descargar el archivo CSV");
+      }
+    },
+  };
+};
