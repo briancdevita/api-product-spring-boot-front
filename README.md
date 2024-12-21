@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# API Product Management
 
-## Getting Started
+Esta es una aplicación de gestión de productos construida con [Next.js](https://nextjs.org), [React](https://reactjs.org), [Material-UI](https://mui.com/), y [React Query](https://react-query.tanstack.com/).
 
-First, run the development server:
+## Estructura del Proyecto
+
+
+## Estructura del Proyecto
+
+```plaintext
+├── .gitignore               # Archivos y carpetas ignorados por Git
+├── .next/                   # Archivos generados automáticamente por Next.js
+├── eslint.config.mjs        # Configuración de ESLint
+├── next-env.d.ts            # Declaraciones de tipos de Next.js
+├── next.config.ts           # Configuración de Next.js
+├── package.json             # Dependencias y scripts del proyecto
+├── public/                  # Archivos estáticos (imágenes, fuentes, etc.)
+├── README.md                # Documentación del proyecto
+├── tsconfig.json            # Configuración de TypeScript
+├── src/                     # Código fuente del proyecto
+│   ├── app/                 # Páginas y layouts principales
+│   │   ├── api/             # Rutas API de Next.js
+│   │   ├── context/         # Contextos globales (e.g., autenticación)
+│   │   ├── helper/          # Funciones auxiliares reutilizables
+│   │   ├── login/           # Páginas y componentes relacionados con el login
+│   │   ├── page.module.css  # Estilos locales para `page.tsx`
+│   │   ├── page.tsx         # Página principal del proyecto
+│   │   ├── layout.tsx       # Layout raíz de la aplicación
+│   │   ├── globals.css      # Estilos globales de la aplicación
+│   ├── components/          # Componentes reutilizables (e.g., tablas, botones)
+│   ├── hooks/               # Hooks personalizados
+│   ├── lib/                 # Configuración de Axios, React Query, etc.
+│   ├── styles/              # Estilos centralizados y temas de MUI
+│   ├── types/               # Tipos y modelos de TypeScript
+
+
+## Instalación
+
+Primero, clona el repositorio y navega al directorio del proyecto:
 
 ```bash
+git clone <URL_DEL_REPOSITORIO>
+cd api-product
+
+Instala las dependencias:
+npm install
+# o
+yarn install
+# o
+pnpm install
+
+Scripts Disponibles
+En el directorio del proyecto, puedes ejecutar:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Inicia el servidor de desarrollo.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre http://localhost:3000 para ver la aplicación en tu navegador.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+npm run build
+Construye la aplicación para producción en la carpeta .next.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+npm start
+Inicia el servidor en modo producción.
 
-## Learn More
+npm run lint
+Ejecuta ESLint para encontrar y arreglar problemas en el código.
 
-To learn more about Next.js, take a look at the following resources:
+Configuración
+Variables de Entorno
+Asegúrate de configurar las variables de entorno necesarias en un archivo .env.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Configuración de ESLint
+El archivo de configuración de ESLint se encuentra en eslint.config.mjs.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Configuración de Next.js
+El archivo de configuración de Next.js se encuentra en next.config.ts.
 
-## Deploy on Vercel
+Estructura de Código
+app
+Contiene las páginas y componentes principales de la aplicación.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+components
+Contiene los componentes reutilizables como Navbar, AuthGuard, ProductManagement, etc.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+hooks
+Contiene hooks personalizados como useAuth.
+
+lib
+Contiene funciones auxiliares y configuraciones como axiosInstance y queries.
+
+styles
+Contiene los estilos de la aplicación.
+
+types
+Contiene las definiciones de tipos TypeScript.
+
+Autenticación
+La autenticación se maneja mediante un contexto de React (AuthContext) que proporciona el estado de autenticación y funciones para iniciar y cerrar sesión.
+
+Gestión de Productos
+La gestión de productos incluye la capacidad de listar, crear, editar y eliminar productos. También se puede descargar un archivo CSV con la lista de productos.
+
+API
+La aplicación interactúa con una API backend para realizar operaciones CRUD en productos y categorías.
+
+Contribuir
+Las contribuciones son bienvenidas. Por favor, abre un issue o un pull request para discutir cualquier cambio que te gustaría hacer.
+
+Licencia
+Este proyecto está licenciado bajo la Licencia MIT.
+
+¡Gracias por usar nuestra aplicación de gestión de productos!
