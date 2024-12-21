@@ -2,8 +2,6 @@
 
 Esta es una aplicación de gestión de productos construida con [Next.js](https://nextjs.org), [React](https://reactjs.org), [Material-UI](https://mui.com/), y [React Query](https://react-query.tanstack.com/).
 
-## Estructura del Proyecto
-
 
 ## Estructura del Proyecto
 
